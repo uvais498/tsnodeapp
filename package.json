@@ -1,5 +1,5 @@
 {
-  "name": "tsnodeproject",
+  "name": "oc-headstart",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.21.0"
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "ordercloud-javascript-sdk": "^6.1.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
