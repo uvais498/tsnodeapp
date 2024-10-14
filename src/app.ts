@@ -8,9 +8,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 
-app.post('/token',async (req:Request , res : Response) => {
+app.post('/token',async () => {
   return '';
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
