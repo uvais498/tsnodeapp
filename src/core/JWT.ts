@@ -4,14 +4,6 @@ import { promisify } from 'util';
 import { sign, verify } from 'jsonwebtoken';
 import { InternalError, BadTokenError, TokenExpiredError } from './ApiError';
 
-/*
- * issuer 		— Software organization who issues the token.
- * subject 		— Intended user of the token.
- * audience 	— Basically identity of the intended recipient of the token.
- * expiresIn	— Expiration time after which the token will be invalid.
- * algorithm 	— Encryption algorithm to be used to protect the token.
- */
-
 export class JwtPayload {
   aud: string;
   sub: string;
@@ -40,8 +32,10 @@ async function readPrivateKey(): Promise<string> {
 
 async function encode(payload: JwtPayload): Promise<string> {
   const cert = await readPrivateKey();
-  if (!cert) throw new InternalError('Token generation failure');
-  // @ts-ignore
+  if (!cert) {
+    throw new InternalError('Token generation failure');
+  }
+  // @ts-expect-error descp
   return promisify(sign)({ ...payload }, cert, { algorithm: 'RS256' });
 }
 
@@ -51,10 +45,13 @@ async function encode(payload: JwtPayload): Promise<string> {
 async function validate(token: string): Promise<JwtPayload> {
   const cert = await readPublicKey();
   try {
-    // @ts-ignore
+    // @ts-expect-error desp
     return (await promisify(verify)(token, cert)) as JwtPayload;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    if (e && e.name === 'TokenExpiredError') throw new TokenExpiredError();
+    if (e && e.name === 'TokenExpiredError') {
+      throw new TokenExpiredError();
+    }
     // throws error if the token has not been encrypted by the private key
     throw new BadTokenError();
   }
@@ -66,10 +63,11 @@ async function validate(token: string): Promise<JwtPayload> {
 async function decode(token: string): Promise<JwtPayload> {
   const cert = await readPublicKey();
   try {
-    // @ts-ignore
+    // @ts-expect-error desp
     return (await promisify(verify)(token, cert, {
-      ignoreExpiration: true,
+      ignoreExpiration: true
     })) as JwtPayload;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     throw new BadTokenError();
   }
@@ -78,5 +76,5 @@ async function decode(token: string): Promise<JwtPayload> {
 export default {
   encode,
   validate,
-  decode,
+  decode
 };

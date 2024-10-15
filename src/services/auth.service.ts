@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 class AuthService {
   constructor() {
     this.elevatedLogin = this.elevatedLogin.bind(this);
@@ -5,13 +6,9 @@ class AuthService {
   public async elevatedLogin(
     clientSecret: string,
     clientID: string,
-    scope: string[] = []
+    _scope: string[] = []
   ): Promise<void> {
-    try {
-      // Placeholder for actual login functionality
-    } catch (error) {
-      console.error('', error);
-    }
+    const T = 0;
   }
 }
 

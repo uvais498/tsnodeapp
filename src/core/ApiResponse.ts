@@ -5,7 +5,7 @@ enum StatusCode {
   SUCCESS = '10000',
   FAILURE = '10001',
   RETRY = '10002',
-  INVALID_ACCESS_TOKEN = '10003',
+  INVALID_ACCESS_TOKEN = '10003'
 }
 
 enum ResponseStatus {
@@ -14,7 +14,7 @@ enum ResponseStatus {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   NOT_FOUND = 404,
-  INTERNAL_ERROR = 500,
+  INTERNAL_ERROR = 500
 }
 
 abstract class ApiResponse {
@@ -42,8 +42,7 @@ abstract class ApiResponse {
   private static sanitize<T extends ApiResponse>(response: T): T {
     const clone: T = {} as T;
     Object.assign(clone, response);
-    // @ts-ignore
-    delete clone.status;
+    //delete clone.status;
     for (const i in clone) {
       if (typeof clone[i] === 'undefined') {
         delete clone[i];

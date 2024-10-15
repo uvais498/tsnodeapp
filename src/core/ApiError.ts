@@ -6,7 +6,7 @@ import {
   InternalErrorResponse,
   NotFoundResponse,
   BadRequestResponse,
-  ForbiddenResponse,
+  ForbiddenResponse
 } from './ApiResponse';
 
 export enum ErrorType {
@@ -19,7 +19,7 @@ export enum ErrorType {
   NO_ENTRY = 'NoEntryError',
   NO_DATA = 'NoDataError',
   BAD_REQUEST = 'BadRequestError',
-  FORBIDDEN = 'ForbiddenError',
+  FORBIDDEN = 'ForbiddenError'
 }
 
 export abstract class ApiError extends Error {
@@ -51,7 +51,9 @@ export abstract class ApiError extends Error {
       default: {
         let message = err.message;
         // Do not send failure message in production as it may send sensitive data
-        if (environment === 'production') message = 'Something wrong happened.';
+        if (environment === 'production') {
+          message = 'Something wrong happened.';
+        }
         return new InternalErrorResponse(message).send(res);
       }
     }
