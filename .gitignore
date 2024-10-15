@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+/logs
 .angular
 
 # local env files
@@ -23,6 +24,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+*.log?
 
 package-lock.json
 commit.sh
