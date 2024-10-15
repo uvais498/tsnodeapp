@@ -15,5 +15,4 @@ class AuthService {
   }
 }
 
-// Export a new instance of AuthService
 export default new AuthService();
